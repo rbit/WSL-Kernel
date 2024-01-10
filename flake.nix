@@ -55,8 +55,9 @@
             mkdir -p $out/lib/tmpfiles.d
             kvers=`make kernelversion`
             cp arch/x86/boot/bzImage $out/bin/bzImage-$kvers
-            echo "C+  /mnt/c/Users/ray/Machines/kernels/bzImage-$kvers  -  -  -  -  $out/bin/bzImage-$kvers" > $out/lib/tmpfiles.d/krnl.conf
-            echo "L+  /mnt/c/Users/ray/Machines/kernels/bzImage-latest  -  -  -  -  /mnt/c/Users/ray/Machines/kernels/bzImage-$kvers" >> $out/lib/tmpfiles.d/krnl.conf
+            cat << EOF > $out/lib/tmpfiles.d/krnl.conf
+            L+  /tmp/wslkrnl/bzImage-$kvers  -  -  -  -  $out/bin/bzImage-$kvers
+            EOF
           '';
           dontFixup = true;
         };
